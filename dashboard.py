@@ -16,7 +16,7 @@ st.write("Download Data Here: [Here](https://data.world/missdataviz/superstore-2
 st.write("---")
 
 # file upload
-fl = st.file_uploader(":file_folder: Upload a file", type=(["csv","txt","xlsx","xls"]))
+fl = st.file_uploader(":file_folder: Upload the file", type=(["csv","txt","xlsx","xls"]))
 if fl is not None:
     filename = fl.name
     st.write(filename)
