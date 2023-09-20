@@ -48,14 +48,14 @@ region = st.sidebar.multiselect("**Select Region :**", df["Region"].unique())
 if not region:
     regionDf = df.copy()
 else:
-    regionDf = df[df["region"].isin(region)]
+    regionDf = df[df["Region"].isin(region)]
 
 # select State sidebar
 state = st.sidebar.multiselect("**Select State :**", regionDf["State"].unique())
 if not state:
     stateDf = regionDf.copy()
 else:
-    stateDf = regionDf[regionDf["state"].isin(state)]
+    stateDf = regionDf[regionDf["State"].isin(state)]
 
 # select city sidebar
 city = st.sidebar.multiselect("**Select City :**", stateDf["City"].unique())
@@ -64,19 +64,19 @@ city = st.sidebar.multiselect("**Select City :**", stateDf["City"].unique())
 if not region and not state and not city:
     filteredDF = df
 elif not state and not city:
-    filteredDF = df[df["region"].isin(region)]
+    filteredDF = df[df["Region"].isin(region)]
 elif not region and not city:
-    filteredDF = regionDf[regionDf["state"].isin(state)]
+    filteredDF = regionDf[regionDf["State"].isin(state)]
 elif region and state:
-    filteredDF = df[df["region"].isin(region) & regionDf["state"].isin(state)]
+    filteredDF = df[df["Region"].isin(region) & regionDf["State"].isin(state)]
 elif city:
-    filteredDF = stateDf[stateDf["city"].isin(city)]
+    filteredDF = stateDf[stateDf["City"].isin(city)]
 elif region and city:
-    filteredDF = df[df["region"].isin(region) & stateDf["city"].isin(city)]
+    filteredDF = df[df["Region"].isin(region) & stateDf["City"].isin(city)]
 elif state and city:
-    filteredDF = regionDf[regionDf["state"].isin(state) & stateDf["city"].isin(city)]
+    filteredDF = regionDf[regionDf["State"].isin(state) & stateDf["City"].isin(city)]
 else:
-    filteredDF = df[df["region"].isin(region) & regionDf["state"].isin(state) & stateDf["city"].isin(city)]
+    filteredDF = df[df["Region"].isin(region) & regionDf["State"].isin(state) & stateDf["City"].isin(city)]
 
 col1, col2 = st.columns(2)
 
