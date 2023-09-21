@@ -1,28 +1,51 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+import os
 import warnings
 warnings.filterwarnings('ignore')
 import plotly.figure_factory as ff
 
-st.set_page_config(page_title="Superstore", page_icon=":bar_chart:", layout="wide")
+# Set page config
+st.set_page_config(
+    page_title="Superstore",
+    page_icon=":bar_chart:",
+    layout="wide"
+)
+
+# Project description
 st.title(" :bar_chart: Sample Superstore EDA")
 st.markdown('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
-
-#project description
 st.write("**This is an exploratory data analysis of a Superstore dataset.**")
 st.write("Data source: [Here](https://data.world/missdataviz/superstore-2021)")
 st.write("Download Data Here: [Here](https://data.world/missdataviz/superstore-2021/workspace/file?filename=Sample+-+Superstore.xls)")
 st.write("---")
 
-# file upload
-fl = st.file_uploader(":file_folder: Upload the file", type=(["csv","txt","xlsx","xls"]))
+@st.cache_data
+def load_data(file):
+    if file.type in ["text/csv", "text/plain"]:
+        df = pd.read_csv(file, encoding="ISO-8859-1")
+    elif file.type in ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"]:
+        df = pd.read_excel(file)
+    else:
+        raise ValueError("Unsupported file format")
+    return df
+
+st.write('*Data taking too long to load from data.world? Upload the file*')
+
+# File upload
+fl = st.file_uploader(":file_folder: Upload the file", type=["csv", "txt", "xlsx", "xls"])
 if fl is not None:
-    filename = fl.name
-    st.write(filename)
-    df = pd.read_csv(filename, encoding = "ISO-8859-1")
+    with st.spinner("Loading data..."):
+        df = load_data(fl)
+    st.success("Data loaded successfully.")
 else:
-    df = pd.read_excel('https://query.data.world/s/73qjpswpfbmeljx2k5ki6bbutw7qv6?dws=00000')
+    file_path = 'https://query.data.world/s/73qjpswpfbmeljx2k5ki6bbutw7qv6?dws=00000'
+    try:
+        df = pd.read_excel(file_path)  # Or Load data directly from the URL
+        st.success("Data loaded successfully.")
+    except ValueError as e:
+        st.error(str(e))
 
 col1, col2 = st.columns((2))
 df["order_date"] = pd.to_datetime(df["Order Date"])
