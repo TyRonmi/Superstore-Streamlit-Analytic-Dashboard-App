@@ -5,7 +5,7 @@ import os
 import warnings
 warnings.filterwarnings('ignore')
 import plotly.figure_factory as ff
-import requests
+import xlrd
 
 # Set page config
 st.set_page_config(
