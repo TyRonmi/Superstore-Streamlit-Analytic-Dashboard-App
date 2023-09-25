@@ -5,6 +5,7 @@ import os
 import warnings
 warnings.filterwarnings('ignore')
 import plotly.figure_factory as ff
+import requests
 
 # Set page config
 st.set_page_config(
@@ -31,10 +32,10 @@ def load_data(file):
         raise ValueError("Unsupported file format")
     return df
 
-st.write('*Data taking too long to load from data.world? Upload the file*')
+st.write('*Data taking too long to load from data.world? Upload the Superstore data file*')
 
 # File upload
-fl = st.file_uploader(":file_folder: Upload the file", type=["csv", "txt", "xlsx", "xls"])
+fl = st.file_uploader(":file_folder: Upload file", type=["csv", "txt", "xlsx", "xls"])
 if fl is not None:
     with st.spinner("Loading data..."):
         df = load_data(fl)
