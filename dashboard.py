@@ -125,7 +125,7 @@ if cateOrSubCate == 'Sales by Category':
                                help="click here to download Category Sales csv data")
 
 else:
-    sub_categoryDF = filteredDF.groupby(by = ["sub_category"], as_index = False)["sales"].sum()
+    sub_categoryDF = filteredDF.groupby(by = ["Sub-Category"], as_index = False)["Sales"].sum()
     with col1:
         st.subheader("Sales by Sub-Category")
         subCateSaleFig = px.bar(sub_categoryDF, x="Sub-Category", y="Sales", text=['${:,.2f}'.format(x) for x in sub_categoryDF["Sales"]], 
