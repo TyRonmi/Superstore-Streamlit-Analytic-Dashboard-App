@@ -6,6 +6,7 @@ import warnings
 warnings.filterwarnings('ignore')
 import plotly.figure_factory as ff
 import xlrd
+import matplotlib.pyplot as plt
 
 # Set page config
 st.set_page_config(
