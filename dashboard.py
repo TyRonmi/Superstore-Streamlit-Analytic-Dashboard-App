@@ -174,8 +174,8 @@ if timeSalesProfit == 'Time Series Analysis of Sales':
 
 else:
     st.subheader("Time Series Analysis of Profit")
-    linechartProfit = pd.DataFrame(filteredDF.groupby(filteredDF["month_year"].dt.strftime("%Y : %b"))["profit"].sum()).reset_index()
-    fig2 = px.line(linechartProfit, x="month_year", y="profit", labels={"profit": "Amount"}, height=500, width=1000, template="gridon")
+    linechartProfit = pd.DataFrame(filteredDF.groupby(filteredDF["month_year"].dt.strftime("%Y : %b"))["Profit"].sum()).reset_index()
+    fig2 = px.line(linechartProfit, x="month_year", y="Profit", labels={"Profit": "Amount"}, height=500, width=1000, template="gridon")
     st.plotly_chart(fig2, use_container_width=True)
 
     with st.expander("View Time Series Data of Profit"):
